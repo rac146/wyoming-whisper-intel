@@ -12,12 +12,13 @@ services:
     # Replace renderD129 with your actual node. To discover:
     #   readlink -f /dev/dri/by-path/pci-0000:04:00.0-render
     devices:
-      - "/dev/dri/renderD129:/dev/dri/renderD129:rwm"
+      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri/card0:/dev/dri/card0
 
     # Add the host's 'render' group (numeric GID) so the process can open /dev/dri/*
     # On host: getent group render | cut -d: -f3
     group_add:
-      - "108"    # <-- replace with your host's render GID
+      - "0"    # <-- replace with your host's render GID
 
     # Expose only Wyoming
     ports:
@@ -25,7 +26,7 @@ services:
 
     # Persist models on the host (optional, but recommended)
     volumes:
-      - ./models:/models
+      - /share/CACHEDEV1_DATA/whisper-models:/models
 
     environment:
       # Intel GPU selection
